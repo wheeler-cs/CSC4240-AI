@@ -22,9 +22,14 @@
       ( cons 'I ( change-pros ( cdr sentence ) ) ) )
     ( ( equal ( car sentence ) 'I )
       ( cons 'you ( change-pros ( cdr sentence ) ) ) )
-
-    ;; CHANGE THIS: add more cases here of pronouns or other words
-    ;; that should flip in order for this to work well
+    ( ( equal ( car sentence ) 'my )
+      ( cons 'your ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'your )
+      ( cons 'I ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'we )
+      ( cons 'you ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'our )
+      ( cons 'your ( change-pros ( cdr sentence ) ) ) )
 
     ( t ( cons ( car sentence ) ( change-pros ( cdr sentence ) ) ) ) ) )
 
