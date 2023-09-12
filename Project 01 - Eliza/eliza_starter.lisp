@@ -38,6 +38,10 @@
       ( cons 'yours ( change-pros ( cdr sentence ) ) ) )
     ( ( equal ( car sentence ) 'yours )
       ( cons 'mine ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'am )
+      ( cons 'are ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'is )
+      ( cons 'are ( change-pros ( cdr sentence ) ) ) )
 
 
     ( t ( cons ( car sentence ) ( change-pros ( cdr sentence ) ) ) ) ) )
@@ -180,12 +184,12 @@
 	   (Why do you think 4 ?) )
    ( (0 you feel 0)
      (Where do you think this feeling of being 6 comes from?) )
-   ( (0 you am 0)
+   ( (0 you are 0)
      (Why are you 4 ?) )
    ( (0 you dont know why 0)
      (Why dont you know why 6) )
 
 	 ;; the catch-alls
 	 ( (0) 
-	   (I don't think I get that.) ) ) )
+	   (I'm not quite sure I understand...) ) ) )
 
