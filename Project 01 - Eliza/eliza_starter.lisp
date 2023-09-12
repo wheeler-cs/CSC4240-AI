@@ -30,6 +30,15 @@
       ( cons 'you ( change-pros ( cdr sentence ) ) ) )
     ( ( equal ( car sentence ) 'our )
       ( cons 'your ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'yourself )
+      ( cons 'myself ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'myself )
+      ( cons 'yourself ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'mine )
+      ( cons 'yours ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'yours )
+      ( cons 'mine ( change-pros ( cdr sentence ) ) ) )
+
 
     ( t ( cons ( car sentence ) ( change-pros ( cdr sentence ) ) ) ) ) )
 
@@ -152,17 +161,31 @@
        '(
 	 ;; example greetings/farewells -- change them to sound like you
 	 ( (Hello 0)
-	   (Hello - have a seat and tell me how you feel today.) )
+	   (How's it going?) )
+   ( (0 how are I 0)
+     (I'm doing pretty well. How are you?) )
+   ( (0 have you ever 0)
+     (I cant say that I have ever 5 .))
+   ( (0 you got 0)
+     (Thats pretty cool. Ive always wanted 4 .))
+   ( (0 can I 0)
+     (That would be pretty tough. Im stuck behind this computer all day.) )
 	 ( (0 you came here because 0)
-	   (A lot of people come here for that reason so you are not alone.) )
+	   (That's fine. What seems to be up.) )
 	 ( (0 Goodbye 0)
-	   (Goodbye - I hope you enjoyed this session.) )
+	   (Take it easy!) )
 
 	 ;; feelings
 	 ( (0 you think 0)
-	   (And just why do you think 4 ?) )
+	   (Why do you think 4 ?) )
+   ( (0 you feel 0)
+     (Where do you think this feeling of being 6 comes from?) )
+   ( (0 you am 0)
+     (Why are you 4 ?) )
+   ( (0 you dont know why 0)
+     (Why dont you know why 6) )
 
 	 ;; the catch-alls
 	 ( (0) 
-	   (Could you expand on that?) ) ) )
+	   (I don't think I get that.) ) ) )
 
