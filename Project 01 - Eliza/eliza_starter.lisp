@@ -54,8 +54,11 @@
 
 ( defun respond ( sentence db )
     ( cond
-        ;; end of DB, return nil
-        ( ( null db ) nil )
+        ;; end of DB, return random catch-all
+        ;; NOTE: This originally returned a nil value, but was appropriated
+        ( ( null db )
+            (catchall_resp (random 2))
+        )
 
         ;; if the result of matching the sentence against the current
         ;; pattern is a success, produce this response
@@ -196,7 +199,9 @@
 
 ( defun catchall_resp ( val )
     ( cond
-        ((equal val '0)) ('(Im not quite sure I understand))
-        ((equal val '1)) ('(Could you maybe rephrase that))
+        ((equal val '0)
+            '(Im not quite sure I understand))
+        ((equal val '1)
+            '(Could you maybe rephrase that))
     )
 )
