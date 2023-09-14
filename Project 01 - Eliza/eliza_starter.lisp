@@ -53,17 +53,19 @@
 ;; response
 
 ( defun respond ( sentence db )
-  ( cond
-    ;; end of DB, return nil - should never really happen
-    ( ( null db ) nil )
+    ( cond
+        ;; end of DB, return nil
+        ( ( null db ) nil )
 
-    ;; if the result of matching the sentence against the current
-    ;; pattern is a success, produce this response
-    ( ( success ( setq result ( match sentence ( first ( car db ) ) ) ) )
-      ( instantiate result ( second ( car db ) ) ) )
-
-    ;; otherwise, keep looking through the DB
-    ( t ( respond sentence ( cdr db ) ) ) ) )
+        ;; if the result of matching the sentence against the current
+        ;; pattern is a success, produce this response
+        ( ( success ( setq result ( match sentence ( first ( car db ) ) ) ) )
+          ( instantiate result ( second ( car db ) ) ) )
+        
+        ;; otherwise, keep looking through the DB
+        ( t ( respond sentence ( cdr db ) ) )
+    )
+)
 
 ;;----------------------------------------------------------------------------
 ;; match: if there is not a match between this pattern and this data,
@@ -162,34 +164,39 @@
 ;;---------------------------------------------------------------------------
 
 ( setq database
-       '(
-	 ;; example greetings/farewells -- change them to sound like you
-	 ( (Hello 0)
-	   (How's it going?) )
-   ( (0 how are I 0)
-     (I'm doing pretty well. How are you?) )
-   ( (0 have you ever 0)
-     (I cant say that I have ever 5 .))
-   ( (0 you got 0)
-     (Thats pretty cool. Ive always wanted 4 .))
-   ( (0 can I 0)
-     (That would be pretty tough. Im stuck behind this computer all day.) )
-	 ( (0 you came here because 0)
-	   (That's fine. What seems to be up.) )
-	 ( (0 Goodbye 0)
-	   (Take it easy!) )
+    '(
+        ;; example greetings/farewells -- change them to sound like you
+        ( (Hello 0)
+          (How's it going?) )
+        ( (0 how are I 0)
+          (I'm doing pretty well and thanks for asking))
+        ( (0 have you ever 0)
+          (I cant say that I have ever 5 ))
+        ( (0 you got 0)
+          (Thats pretty cool Ive always wanted 4 ))
+        ( (0 can I 0)
+          (That would be pretty tough Im stuck behind this computer all day))
+        ( (0 you came here because 0)
+	      (That's fine What seems to be up))
+        ( (0 Goodbye 0)
+	      (Take it easy!) )
 
-	 ;; feelings
-	 ( (0 you think 0)
-	   (Why do you think 4 ?) )
-   ( (0 you feel 0)
-     (Where do you think this feeling of being 6 comes from?) )
-   ( (0 you are 0)
-     (Why are you 4 ?) )
-   ( (0 you dont know why 0)
-     (Why dont you know why 6) )
+        ;; feelings
+        ( (0 you think 0)
+          (Why do you think 4 ?) )
+        ( (0 you feel 0)
+          (Where do you think this feeling of being 6 comes from?) )
+        ( (0 you are 0)
+          (Why are you 4 ?) )
+        ( (0 you dont know why 0)
+          (Why dont you know why 6) )
+    )
+)
 
-	 ;; the catch-alls
-	 ( (0) 
-	   (I'm not quite sure I understand...) ) ) )
 
+( defun catchall_resp ( val )
+    ( cond
+        ((equal val '0)) ('(Im not quite sure I understand))
+        ((equal val '1)) ('(Could you maybe rephrase that))
+    )
+)
