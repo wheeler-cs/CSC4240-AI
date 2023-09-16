@@ -1,8 +1,3 @@
-;;==========================================================================
-;;
-;; STARTER FILE FOR CSC 4240/5240 PROGRAM #1: Eliza
-;;==========================================================================
-
 ;;----------------------------------------------------------------------------
 ;; eliza: top-level function which, when given a sentence (no
 ;; punctuation, please!), comes back with a response like you would.
@@ -60,7 +55,7 @@
         ;; NOTE: This originally returned a nil value, but was appropriated to
         ;; randomly select a generic catch-all
         ( ( null db )
-            (catchall_resp (random 5))
+            (catchall_resp (random 6))
         )
 
         ;; if the result of matching the sentence against the current
@@ -164,96 +159,136 @@
 ;;
 ;;---------------------------------------------------------------------------
 
-;; CHANGE THIS: add more to this database so that the interaction is
-;; more interesting and communicative and so that Eliza sounds like you 
-;; would sound in the same conversation!
-;;---------------------------------------------------------------------------
-
 ( setq database
     '(
-        ;; Greetings and Goodbyes
-        ( (Hello 0)
-          (How's it going?))
-        ( (Hey 0)
-          (How are you?))
-        ( (Good morning 0)
-          (Morning how are you feeling today))
-        ( (Good afternoon 0)
-          (Good afternoon to you too!))
-        ( (Good evening 0)
-          (Good evening! How was your day?))
-        ( (0 how are I 0)
-          (I'm doing pretty well thanks for asking))
-        ( (0 you will talk to I later 0)
-          (Sounds good! Enjoy the rest of your day))
-        ( (0 Goodbye 0)
-	        (Take it easy!))
-        ( (0 Bye 0)
-          (See you later!))
+        #|
+            Greetings and Goodbyes
+            Statements that are typically used when either starting or ending a conversation.
+        |#
+        ((Hello 0)
+         (How's it going?))
+        ((Hey 0)
+         (How are you?))
+        ((Good morning 0)
+         (Morning how are you feeling today))
+        ((Good afternoon 0)
+         (Good afternoon to you too!))
+        ((Good evening 0)
+         (Good evening! How was your day?))
+        ; Don't want to ask "how are you" with the below statment because the agent may have already
+        ; asked that in an earlier response
+        ((0 how are I 0)
+         (I'm doing pretty well thanks for asking))
+        ((0 you will talk to I later 0)
+         (Sounds good! Enjoy the rest of your day))
+        ((0 Goodbye 0)
+	     (Take it easy!))
+        ((0 Bye 0)
+         (See you later!))
         
-        ;; Early conversational pieces
-        ( (0 you came here because 0)
-	        (That's fine I'm open to listening))
+        #|
+            Early Conversation Statements
+            Statements that are more likely to show up at the start of a conversation. 
+        |#
+        ((0 you came here because 0)
+	     (That's fine I'm open to listening))
+        ((0 can I talk 0)
+         (That's my purpose is to talk))
         
-        ;; Flat responses (just pre-programmed text)
-        ( (0 can I 0)
-          (That would be pretty tough since Im stuck behind this computer all day))
-        ( (0 you 0 think 0)
-          (Mayhaps so))
-        ( (0 it is 0)
-          (Why is it like that?))
-        ( (0 there are 0)
-          (That is true))
-        ( (0 why do I 0)
-          (Thats a pretty tough question to answer unfortunately))
+        #|
+            Flat Responses
+            Responses are hard-coded and do not use anything provided by the user.
+        |#
+        ((0 can I 0)
+         (That would be pretty tough since Im stuck behind this computer all day))
+        ((0 it is 0)
+         (Why is it like that?))
+        ((0 there are 0)
+         (That is true))
+        ((0 why do I 0)
+         (Thats a pretty tough question to answer unfortunately))
         
-        ;; Opening keywords (sentence starts with certain keywords)
-        ( (easy 0)
-          (Things are hardly ever as easy as that))
-        ( (well you can 0)
-          (That is always one thing))
-        ( (you have to 0)
-          (Is that something you want to do?))
-        ( (thank I 0)
-          (Of course!))
-        ( (I 0)
-          (And why do you think I 0))
+        #|
+            Opening Keywords
+            The defining statement of the sentence is the first word or words of the sentence
+            provided. These are checked fairly early due to other rules taking precedence over them
+            if allowed to.
+        |#
+        ((easy 0)
+         (Things are hardly ever as easy as that))
+        ((well you can 0)
+         (That is always one thing))
+        ((you have to 0)
+         (Is that something you want to do?))
+        ((thank I 0)
+         (Of course!))
+        ((because 0)
+         (2 is a very good point))
+        ((I 0)
+         (And why do you think I 0))
+        ((you 0)
+         (What makes you think you 2))
         
-        ;; Referential responses (uses part of user's text to respond)
-        ( (0 have you ever 0)
-          (I cant say that I have ever 5 ?))
-        ( (0 you think 0)
-          (Why do you think 4 ?))
-        ( (0 you are 0)
-          (Why are you 4 ?))
-        ( (0 you feel 0)
-          (Do you want to talk about why 1 you feel 4 ?))
-        ( (0 you dont know why 0)
-          (Why dont you know why 6 ?))
-        ( (0 you were 0)
-          (Why is it that you were 4 ?))
-        ( (0 you got 0)
-          (Thats pretty cool that you got 4 ?))
-        ( (0 you have 0)
-          (Any particular reason you have 4 ?))
-        ( (0 you will 0)
-          (Do you think 4 will help?))
-        ( (0 you can 0)
-          (Interesting how can you do 4 ?))
-        ( (0 you went 0)
-          (Did you enjoy going 4 ?))
-        ( (0 can you 0)
-          (Feel free to 4))
+        #|
+            Referential Responses
+            Statements and responses that take part of what the user provided as input and attempt
+            to work it sentence provided by ELIZA.
+        |#
+        ((0 have you ever 0)
+         (I cant say that I have ever 5 ?))
+        ((0 you think 0)
+         (Why do you think 4 ?))
+        ((0 you are 0)
+         (Why are you 4 ?))
+        ((0 you feel 0)
+         (Do you want to talk about why 1 you feel 4 ?))
+        ((0 you dont know why 0)
+         (Why dont you know why 6 ?))
+        ((0 you were 0)
+         (Why is it that you were 4 ?))
+        ((0 you got 0)
+         (Thats pretty cool that you got 4))
+        ((0 you have 0)
+         (Any particular reason you have 4 ?))
+        ((0 you will 0)
+         (Do you think 4 will help?))
+        ((0 you can 0)
+         (Interesting how can you do 4 ?))
+        ((0 you went 0)
+         (Did you enjoy going 4 ?))
+        ((0 can you 0)
+         (Feel free to 4))
         
-        ;; Very generic sentences ("when all else fails")
+        #| 
+            Very Generic Sentences
+            Not quite in the "catch-all" territory, but very close to it. Agent attempts to respond
+            with a very general statement to keep the conversation coherent.
+        |#
         ((0 you 0 the 0)
          (Why is it you 3 the 5 ?))
+        ((0 what are 0)
+         (If I knew I'd tell you))
+        ((0 do I want 0)
+         (I dont think I'll be able to get involved with that))
+        ((0 how do I 0)
+         (I'm really not sure how to do that))
+        ((0 who can 0)
+         (I really don't know anyone who can 4))
+        ((0 do I 0)
+         (I do not unfortunately))
+        ((0 you want 0)
+         (There's very little I can help with outside of conversation))
         ((you finally 0)
          (Thats a pretty impressive feat))
     )
 )
 
-
+#|
+    Catch-All Response
+    Provides a generic "error" response when the user gives a statement not handled by the rules in
+    the database. Responses here are supposed to keep the conversation going while getting the user
+    to (hopefully) give a statement that is covered by the database.
+|#
 ( defun catchall_resp ( val )
     ( cond
         ((equal val '0)
@@ -261,7 +296,7 @@
         ((equal val '1)
             '(Could you maybe rephrase that?))
         ((equal val '2)
-            '(That's an odd way of saying that?))
+            '(That's an odd way of saying that))
         ((equal val '3)
             '(How do you mean?))
         ((equal val '4)
