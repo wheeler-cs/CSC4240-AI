@@ -42,6 +42,8 @@
       ( cons 'are ( change-pros ( cdr sentence ) ) ) )
     ( ( equal ( car sentence ) 'is )
       ( cons 'are ( change-pros ( cdr sentence ) ) ) )
+    ( ( equal ( car sentence ) 'was )
+      ( cons 'were ( change-pros ( cdr sentence ) ) ) )
 
 
     ( t ( cons ( car sentence ) ( change-pros ( cdr sentence ) ) ) ) ) )
@@ -55,9 +57,10 @@
 ( defun respond ( sentence db )
     ( cond
         ;; end of DB, return random catch-all
-        ;; NOTE: This originally returned a nil value, but was appropriated
+        ;; NOTE: This originally returned a nil value, but was appropriated to
+        ;; randomly select a generic catch-all
         ( ( null db )
-            (catchall_resp (random 2))
+            (catchall_resp (random 4))
         )
 
         ;; if the result of matching the sentence against the current
@@ -168,31 +171,61 @@
 
 ( setq database
     '(
-        ;; example greetings/farewells -- change them to sound like you
+        ;; Greetings and Goodbyes
         ( (Hello 0)
           (How's it going?) )
+        ( (Hey 0)
+          (How are you?) )
+        ( (Good morning 0)
+          (Morning how are you feeling today))
+        ( (Good afternoon 0)
+          (Good afternoon to you too!))
+        ( (Good evening 0)
+          (Good evening! How was your day?))
         ( (0 how are I 0)
           (I'm doing pretty well and thanks for asking))
-        ( (0 have you ever 0)
-          (I cant say that I have ever 5 ))
-        ( (0 you got 0)
-          (Thats pretty cool Ive always wanted 4 ))
-        ( (0 can I 0)
-          (That would be pretty tough Im stuck behind this computer all day))
-        ( (0 you came here because 0)
-	      (That's fine What seems to be up))
         ( (0 Goodbye 0)
-	      (Take it easy!) )
-
-        ;; feelings
+	        (Take it easy!) )
+        
+        ;; Early conversational pieces
+        ( (0 you came here because 0)
+	        (That's fine I'm open to listening))
+        
+        ;; Flat responses (just pre-programmed text)
+        ( (0 can I 0)
+          (That would be pretty tough since Im stuck behind this computer all day))
+        ( (0 can you 0)
+          (Feel free to 4))
+        ( (0 you can 0)
+          (Interesting how can you do 4 ?))
+        ( (0 you 0 think 0)
+          (Mayhaps so))
+        ( (0 it is 0)
+          (Why is it like that?))
+        
+        ;; Referential responses (uses part of user's text to respond)
+        ( (0 have you ever 0)
+          (I cant say that I have ever 5 ?))
         ( (0 you think 0)
           (Why do you think 4 ?) )
-        ( (0 you feel 0)
-          (Where do you think this feeling of being 6 comes from?) )
         ( (0 you are 0)
           (Why are you 4 ?) )
+        ( (0 you feel 0)
+          (Do you want to talk about why 1 you feel 4 ?) )
         ( (0 you dont know why 0)
-          (Why dont you know why 6) )
+          (Why dont you know why 6 ?) )
+        ( (0 you were 0)
+          (Why is it that you were 4 ?) )
+        ( (0 you got 0)
+          (Thats pretty cool that you got 4 ?))
+        ( (0 you have 0)
+          (Any particular reason you have 4 ?))
+        
+        ;; Opening keywords
+        ( (easy 0)
+          (Things hardly go as easy as that))
+        ( (well I can 0)
+          (That is always one thing))
     )
 )
 
@@ -202,6 +235,12 @@
         ((equal val '0)
             '(Im not quite sure I understand))
         ((equal val '1)
-            '(Could you maybe rephrase that))
+            '(Could you maybe rephrase that?))
+        ((equal val '2)
+            '(That's an odd way of saying that?))
+        ((equal val '3)
+            '(How do you mean?))
+        ((equal val '4)
+            '(What exactly do you want to talk about?))
     )
 )
