@@ -182,18 +182,20 @@
         ((0 you will talk to I later 0)
          (Sounds good! Enjoy the rest of your day))
         ((0 Goodbye 0)
-	     (Take it easy!))
+	       (Take it easy!))
         ((0 Bye 0)
          (See you later!))
+        ((0 Ciao 0)
+         (Arrivederci!))
         
         #|
             Early Conversation Statements
             Statements that are more likely to show up at the start of a conversation. 
         |#
         ((0 you came here because 0)
-	     (That's fine I'm open to listening))
-        ((0 can I talk 0)
-         (That's my purpose is to talk))
+	       (That's fine I'm open to listening))
+        ((0 can you talk 0)
+         (That's my purpose is to talk so go ahead and share what is on your mind))
         
         #|
             Flat Responses
@@ -214,6 +216,8 @@
             provided. These are checked fairly early due to other rules taking precedence over them
             if allowed to.
         |#
+        ((you are 0)
+         (Why is it you are 3 ?))
         ((easy 0)
          (Things are hardly ever as easy as that))
         ((well you can 0)
@@ -223,18 +227,14 @@
         ((thank I 0)
          (Of course!))
         ((because 0)
-         (2 is a very good point))
-        ((I 0)
-         (And why do you think I 0))
-        ((you 0)
-         (What makes you think you 2))
+         (That is a very good point))
         
         #|
             Referential Responses
             Statements and responses that take part of what the user provided as input and attempt
             to work it sentence provided by ELIZA.
         |#
-        ((0 have you ever 0)
+        ((0 have I ever 0)
          (I cant say that I have ever 5 ?))
         ((0 you think 0)
          (Why do you think 4 ?))
@@ -242,8 +242,8 @@
          (Why are you 4 ?))
         ((0 you feel 0)
          (Do you want to talk about why 1 you feel 4 ?))
-        ((0 you dont know why 0)
-         (Why dont you know why 6 ?))
+        ((0 you do not know why 0)
+         (Why don't you know why 6 ?))
         ((0 you were 0)
          (Why is it that you were 4 ?))
         ((0 you got 0)
@@ -258,6 +258,12 @@
          (Did you enjoy going 4 ?))
         ((0 can you 0)
          (Feel free to 4))
+        ((0 you did not 0)
+         (Do you want to share why you did not 5 ?))
+        ((0 what do I 0)
+         (I'd rather hear what you 5))
+        ((0 what did I 0)
+         (I'd rather hear what you did 5))
         
         #| 
             Very Generic Sentences
@@ -280,6 +286,15 @@
          (There's very little I can help with outside of conversation))
         ((you finally 0)
          (Thats a pretty impressive feat))
+        
+        #|
+            One-Word Statements
+            Statements the user provides that are just one word.
+         |#
+         ((no)
+          (Let's move on to something else then))
+         ((yes)
+          (Please keep going))
     )
 )
 
