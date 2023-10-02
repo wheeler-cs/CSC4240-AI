@@ -51,5 +51,9 @@ Percept.o: Percept.h Percept.cc
 WumpusWorld.o: WumpusWorld.h WumpusWorld.cc
 	$(CC) -c WumpusWorld.cc
 
+.PHONY: test
+test:
+	./wumpsim -world testworld.txt -trials 10
+
 clean:
 	rm -rf *.o *.pyc __pycache__ wumpsim pywumpsim

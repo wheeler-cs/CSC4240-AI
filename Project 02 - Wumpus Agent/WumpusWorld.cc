@@ -65,7 +65,7 @@ WumpusWorld::WumpusWorld (char* worldFile)
 		worldFileStream >> tokenStr;
 		if (tokenStr != "size")
 		{
-			cout << "Incorrect token in world file: " << tokenStr << endl;
+			cout << "Incorrect size token in world file: " << tokenStr << endl;
 			exit(1);
 		} else {
 			worldFileStream >> intArg1;
@@ -78,7 +78,7 @@ WumpusWorld::WumpusWorld (char* worldFile)
 		worldFileStream >> tokenStr;
 		if (tokenStr != "wumpus")
 		{
-			cout << "Incorrect token in world file: " << tokenStr << endl;
+			cout << "Incorrect wumpus token in world file: " << tokenStr << endl;
 			exit(1);
 		} else {
 			worldFileStream >> intArg1;
@@ -95,8 +95,8 @@ WumpusWorld::WumpusWorld (char* worldFile)
 		worldFileStream >> tokenStr;
 		if (tokenStr != "gold")
 		{
-			cout << "Incorrect token in world file: " << tokenStr << endl;
-			exit(1);
+			currentState.goldLocation = Location ((rand() % currentState.worldSize),
+			                                      (rand() % currentState.worldSize));
 		} else {
 			worldFileStream >> intArg1;
 			worldFileStream >> intArg2;
@@ -380,8 +380,9 @@ void WumpusWorld::Print ()
 	int x;
 	int y;
 
-	cout << "World size = " << currentState.worldSize << "x" << currentState.worldSize << endl;
+	//cout << "World size = " << currentState.worldSize << "x" << currentState.worldSize << endl;
 	// Print top line
+	/*
 	cout << "+";
 	for (x = 1; x <= currentState.worldSize; x++)
 	{
@@ -445,7 +446,6 @@ void WumpusWorld::Print ()
 			}
 		}
 		cout << endl;
-		/*
 		// Print empty next line
 		cout << "|";
 		for (x = 1; x <= currentState.worldSize; x++)
@@ -453,7 +453,6 @@ void WumpusWorld::Print ()
 			cout << "   |";
 		}
 		cout << endl;
-		*/
 		// Print boundary line
 		cout << "+";
 		for (x = 1; x <= currentState.worldSize; x++)
@@ -462,11 +461,14 @@ void WumpusWorld::Print ()
 		}
 		cout << endl;
 	}
+	*/
+	/*
 	cout << "Current percept = ";
 	currentPercept.Print();
 	cout << "Agent has gold = " << currentState.agentHasGold
 		 << ", agent has arrow = " << currentState.agentHasArrow << endl;
 	cout << "Current score = " << GetScore() << endl << endl;
+	*/
 }
 
 void WumpusWorld::Write (const char* fileName)

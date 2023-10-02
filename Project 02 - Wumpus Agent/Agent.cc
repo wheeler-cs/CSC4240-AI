@@ -1,13 +1,14 @@
 // Agent.cc
 
 #include <iostream>
+#include <cstdlib>
 #include "Agent.h"
 
 using namespace std;
 
 Agent::Agent ()
 {
-
+	srand (time (NULL));
 }
 
 Agent::~Agent ()
@@ -22,32 +23,35 @@ void Agent::Initialize ()
 
 Action Agent::Process (Percept& percept)
 {
-	char c;
 	Action action;
-	bool validAction = false;
 
-	while (! validAction)
+	if (percept.Glitter)
 	{
-		validAction = true;
-		cout << "Action? ";
-		cin >> c;
-		if (c == 'f') {
-			action = GOFORWARD;
-		} else if (c == 'l') {
-			action = TURNLEFT;
-		} else if (c == 'r') {
-			action = TURNRIGHT;
-		} else if (c == 'g') {
-			action = GRAB;
-		} else if (c == 's') {
+		action = GRAB;
+	}
+	else if ((this->internal_state.agentHasGold) &&
+	         (this->internal_state.agentLocation == Location (1,1)))
+	{
+		action = CLIMB;
+	}
+	else if (this->internal_state.agentHasArrow)
+	{
+		if ((this->internal_state.agentLocation.X == 4) &&
+		    (this->internal_state.agentOrientation == UP))
+		{
 			action = SHOOT;
-		} else if (c == 'c') {
-			action = CLIMB;
-		} else {
-			cout << "Huh?" << endl;
-			validAction = false;
+		}
+		else if ((this->internal_state.agentLocation.Y == 4) &&
+		         (this->internal_state.agentOrientation == RIGHT))
+		{
+			action = SHOOT;
 		}
 	}
+	else
+	{
+		action = (Action)(rand() % 3);
+	}
+
 	return action;
 }
 
