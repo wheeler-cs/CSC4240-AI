@@ -16,6 +16,10 @@ public:
 	Action Process (Percept& percept);
 	void GameOver (int score);
 
+	bool can_kill_wumpus();
+	void handle_movement();
+	void handle_rotation (Action);
+
 private:
 	WorldState internal_state;
 };

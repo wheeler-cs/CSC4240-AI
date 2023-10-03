@@ -95,8 +95,9 @@ WumpusWorld::WumpusWorld (char* worldFile)
 		worldFileStream >> tokenStr;
 		if (tokenStr != "gold")
 		{
-			currentState.goldLocation = Location ((rand() % currentState.worldSize),
-			                                      (rand() % currentState.worldSize));
+			currentState.goldLocation = Location ((rand() % currentState.worldSize) + 1,
+			                                      (rand() % currentState.worldSize) + 1);
+			std::cout << "Gold at: " << currentState.goldLocation.X << ", " << currentState.goldLocation.Y;
 		} else {
 			worldFileStream >> intArg1;
 			worldFileStream >> intArg2;
@@ -134,7 +135,7 @@ WumpusWorld::WumpusWorld (char* worldFile)
 		exit (1);
 	}
 	worldFileStream.close();
-	cout << "Read world file" << endl;
+	// cout << "Read world file" << endl;
 }
 
 void WumpusWorld::Initialize ()
@@ -380,9 +381,8 @@ void WumpusWorld::Print ()
 	int x;
 	int y;
 
-	//cout << "World size = " << currentState.worldSize << "x" << currentState.worldSize << endl;
+	cout << "World size = " << currentState.worldSize << "x" << currentState.worldSize << endl;
 	// Print top line
-	/*
 	cout << "+";
 	for (x = 1; x <= currentState.worldSize; x++)
 	{
@@ -461,14 +461,11 @@ void WumpusWorld::Print ()
 		}
 		cout << endl;
 	}
-	*/
-	/*
 	cout << "Current percept = ";
 	currentPercept.Print();
 	cout << "Agent has gold = " << currentState.agentHasGold
 		 << ", agent has arrow = " << currentState.agentHasArrow << endl;
 	cout << "Current score = " << GetScore() << endl << endl;
-	*/
 }
 
 void WumpusWorld::Write (const char* fileName)

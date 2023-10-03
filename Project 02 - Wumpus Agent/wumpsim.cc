@@ -22,7 +22,6 @@ using namespace std;
 
 int main (int argc, char *argv[])
 {
-	srand (time (NULL));
 	int worldSize = 4;
 	int numTrials = 1;
 	int numTries = 1;
@@ -133,9 +132,9 @@ int main (int argc, char *argv[])
 				wumpusWorld->Print();
 				percept = wumpusWorld->GetPercept();
 				action = agent->Process (percept);
-				//cout << "Action = ";
-				//PrintAction (action);
-				//cout << endl << endl;
+				cout << "Action = ";
+				PrintAction (action);
+				cout << endl << endl;
 				wumpusWorld->ExecuteAction (action);
 				numMoves++;
 			}

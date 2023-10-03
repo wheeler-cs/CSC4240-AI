@@ -53,7 +53,7 @@ WumpusWorld.o: WumpusWorld.h WumpusWorld.cc
 
 .PHONY: test
 test:
-	./wumpsim -world testworld.txt -trials 10
+	./wumpsim -world testworld.txt -trials 1 > out.log
 
 clean:
 	rm -rf *.o *.pyc __pycache__ wumpsim pywumpsim

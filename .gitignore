@@ -1,2 +1,8 @@
 *.o
+*.pyc
+*.log
+
+__pycache__/
+
 wumpsim
+pywumpsim
