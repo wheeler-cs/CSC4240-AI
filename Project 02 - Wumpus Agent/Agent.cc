@@ -98,8 +98,9 @@ bool Agent::can_kill_wumpus()
 	}
 
 	// Agent's position on grid is indicative of firing position	
-	if (((x == 4) && (direction_facing == UP)) ||
-	    ((y == 4) && (direction_facing == RIGHT)))
+	// FIX: x and y were swapped, meaning the agent would fire at inappropriate times
+	if (((y == 4) && (direction_facing == UP)) ||
+	    ((x == 4) && (direction_facing == RIGHT)))
 	{
 		return true;
 	}
@@ -110,22 +111,27 @@ bool Agent::can_kill_wumpus()
 void Agent::handle_movement()
 {
 
-	// BUG: Agent's internal state does not update after this function call for some reason...
 	Orientation direction_facing = this->internal_state.agentOrientation;
 	int x = this->internal_state.agentLocation.X,
 	    y = this->internal_state.agentLocation.Y;
 
+
 	// Move temporary state positioning
+	// FIX: Missing `break` statements made it were internal position didn't update
 	switch (direction_facing)
 	{
 		case UP:
 			x++;
+			break;
 		case DOWN:
 			x--;
+			break;
 		case RIGHT:
 			y++;
+			break;
 		case LEFT:
 			y--;
+			break;
 	}
 
 	// Determine if agent would be out of bounds with the move
@@ -137,8 +143,7 @@ void Agent::handle_movement()
 	else
 	{
 		// Update internal state if valid move
-		this->internal_state.agentLocation.X = x;
-		this->internal_state.agentLocation.Y = y;
+		this->internal_state.agentLocation = Location (x, y);
 	}
 }
 
